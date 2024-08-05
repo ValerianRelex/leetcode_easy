@@ -1,8 +1,6 @@
 package com.swvalerian.easy;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class TwoSum {
     public static int[] twoSum(int[] nums, int target) {
@@ -18,18 +16,20 @@ public class TwoSum {
 
     public static int[] twoSumFast(int[] nums, int target) {
 
-        Set<Integer> set = new HashSet<>();
+        Map<Integer, Integer> map = new HashMap<>();
 
         int firstIndex = 0;
         int secondIndex = 0;
 
         for (int i = 0; i < nums.length; i++) {
-            if (set.contains(target - nums[i])) {
+            if (map.containsKey(target - nums[i])) {
                 // 2 7 11 15 target = 9
-                firstIndex = i;
-                secondIndex = Arrays.toString(nums).indexOf(target - nums[i]);
+                firstIndex = map.get(target - nums[i]);
+                secondIndex = i;
+                return new int[] { firstIndex, secondIndex };
             }
+            map.put(nums[i], i);
         }
-        return new int[] { firstIndex, secondIndex };
+        return new int[] { -1000, -1000 };
     }
 }
